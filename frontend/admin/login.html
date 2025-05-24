@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>FairScore - Admin Login</title>
     <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <div class="login-container">
-        <h1>Login Form</h1>
+        <div class="login-form">
+            <h1>Admin Login</h1>
+            <form id="admin-login">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            
+            <div class="social-login">
+                <p>or login with</p>
+                <div class="social-icons">
+                    <span class="icon">G</span>
+                    <span class="icon">f</span>
+                    <span class="icon">Q</span>
+                    <span class="icon">in</span>
+                </div>
+            </div>
+        </div>
         
-        <form class="login-form">
-            <div class="form-group">
-                <label for="email">Enter your email</label>
-                <input type="email" id="email" name="email" required>
+        <div class="welcome-message">
+            <h2>Welcome to FairScore</h2>
+            <div class="inspiration-box">
+                <p class="highlight">Empowering Fair Judgement</p>
+                <p>Where every score tells a story of opportunity and growth.</p>
+                <p>Our platform brings transparency to competitive events, ensuring every participant gets the fair evaluation they deserve.</p>
+                <div class="quote">
+                    <p>"Injustice anywhere is a threat to justice everywhere."</p>
+                    <p class="author">- Martin Luther King Jr.</p>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="password">Enter your password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <div class="remember-me">
-                <input type="checkbox" id="remember" name="remember">
-                <label for="remember">Remember me</label>
-            </div>
-            
-            <button type="submit" class="login-btn">Log in</button>
-        </form>
+        </div>
     </div>
+    
+    <script src="js/login.js"></script>
 </body>
 </html>
