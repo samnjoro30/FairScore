@@ -1,0 +1,33 @@
+/* Add to your existing CSS */
+.stats-row{
+    background-color: rgb(145, 175, 226);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 16px;
+    gap: 12px;
+    border-radius: 10px;
+}
+.stat-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card .stat-info h3:empty::before {
+    content: "0";
+    opacity: 0.5;
+}
+
+.stat-card.loading .stat-info h3::after {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 8px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

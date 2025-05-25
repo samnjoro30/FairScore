@@ -1,5 +1,8 @@
 <?php
 session_start();
+ob_start();
+
+session_start();
 require_once 'config.php';
 
 // Enable error reporting for debugging
@@ -28,7 +31,11 @@ if (empty($username) || empty($password)) {
 
 try {
     // Prepare statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT username, password, Name, Email FROM admin_users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT username, password, Name, Email, last_login FROM admin_users WHERE username = ?");
+    if (!$stmt) {
+        throw new Exception('Prepare failed: ' . $conn->error);
+    }
+
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -63,7 +70,7 @@ try {
                     'name' => $user['Name'],
                     'email' => $user['Email']
                 ],
-                'redirect' => 'dashboard.php'
+                'redirect' => 'index.html'
             ]);
             exit();
         }

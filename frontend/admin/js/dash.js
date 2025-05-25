@@ -178,3 +178,56 @@ function showError(message) {
     document.getElementById('adminLastLogin').innerHTML = 
         `<i class="fas fa-clock"></i> Last login: Unknown`;
 }
+
+//Stats section
+document.addEventListener('DOMContentLoaded', function() {
+    fetchStats();
+    // Refresh every 2 minutes
+    setInterval(fetchStats, 120000);
+});
+
+function fetchStats() {
+    fetch('http://localhost/fairscore/backend/api/stat.php', {
+        credentials: 'include'
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            updateStatsUI(data.data);
+        } else {
+            console.error('Error fetching stats:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching statistics:', error);
+    });
+}
+
+function updateStatsUI(stats) {
+    // Animate the number changes
+    animateValue('judgeCount', parseInt(document.getElementById('judgeCount').textContent), stats.judges, 500);
+    animateValue('participantCount', parseInt(document.getElementById('participantCount').textContent), stats.participants, 500);
+    
+    // For percentage, we need to handle the % symbol
+    const currentAccuracy = parseInt(document.getElementById('accuracyPercent').textContent);
+    animateValue('accuracyPercent', currentAccuracy, stats.accuracy, 500, true);
+}
+
+// Smooth number animation function
+function animateValue(id, start, end, duration, isPercentage = false) {
+    const obj = document.getElementById(id);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = isPercentage ? `${value}%` : value;
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}

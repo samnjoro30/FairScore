@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairScore Admin Panel</title>
+    <link rel="stylesheet" href="./css/dashboard.css">
+    <link rel="stylesheet" href="./css/Addjudge.css">
+    <link rel="stylesheet" href="./css/list.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/participant.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+    <link rel="stylesheet" href="./css/button.css">
+    <link rel="stylesheet" href="./css/section.css">
+    <link rel="stylesheet" href="./css/stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="dashboard-header">
+            <div class="header-container">
+                <div class="header-center">
+                    <h1 class="logo">
+                        <span class="logo-icon">🔹</span>
+                        <span class="logo-main">FairScore</span>
+                        <span class="logo-sub">Admin Panel</span>
+                    </h1>
+                </div>
+                <div class="header-right">
+                    <button class="icon-btn theme-toggle"><i class="fas fa-moon"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="dashboard-main">
+            <!-- Sidebar Navigation -->
+            <nav class="dashboard-sidebar">
+                
+            </nav>
+
+            <!-- Content Area -->
+            <main class="dashboard-content">
+              
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div class="welcome-card">
+                        <div class="welcome-header">
+                            <div class="welcome-avatar">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="welcome-info">
+                                <h2>Welcome back, <span class="username" id="adminUsername">Admin</span>!</h2>
+                                <div class="user-details">
+                                    <p class="user-email" id="adminEmail"><i class="fas fa-envelope"></i> <span class="loading"></span></p>
+                                    <p class="last-login" id="adminLastLogin"><i class="fas fa-clock"></i> <span class="loading"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                
+                <!-- Two Column Layout -->
+                <div class="content-columns">
+                    <!-- Recent Activity Column -->
+                    <div class="content-col">
+                        <h3 class="section-title"><i class="fas fa-clock"></i> Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-time">10:45 AM</div>
+                                <div class="activity-details">Judge A scored Team X (8.5)</div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-time">10:30 AM</div>
+                                <div class="activity-details">New participant registered</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Live Standings Column -->
+                    <div class="content-col">
+                        <h3 class="section-title"><i class="fas fa-trophy"></i> Live Standings (Top 5)</h3>
+                        <div class="standings-list">
+                            <div class="standing-item first-place">
+                                <div class="rank">#1</div>
+                                <div class="team-name">Team Alpha</div>
+                                <div class="team-score">⭐ 9.2</div>
+                                <div class="team-medal">🏅</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FairScore - Admin Login</title>
     <link rel="stylesheet" href="./css/login.css">
-    <!-- <script src="./js/login.js" defer></script> -->
 </head>
 <body>
     <div class="login-container">
         <div class="login-form">
-            <h1>Admin Login</h1>
-            <form id="admin-login">
+            <h1>Judge Login</h1>
+            <form id="judge-login">
                 <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
                 </div>
                 <button type="submit" class="login-btn">Login</button>
                 <div id="error-message" style="color: red; margin-top: 10px;"></div>
             </form>
-            
         </div>
-        
         <div class="welcome-message">
             <h2>Welcome to FairScore</h2>
             <div class="inspiration-box">
@@ -42,18 +39,18 @@
            e.preventDefault();
   
             const formData = {
-                username: document.getElementById('username').value,
-                password: document.getElementById('password').value
+                email: document.getElementById('email').value,
+                judge_id: document.getElementById('username').value
             };
             try {
-                const response = await fetch('http://localhost/fairscore/backend/login.php', {
+                const response = await fetch('http://localhost/fairscore/backend/judge/login_judge.php', {
                     method: 'POST',
                     headers: {
                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
                     body: new URLSearchParams(formData)
                 });
-                 console.log("data:", response)
+                console.log("Data:", response);
                 if (!response.ok) {
                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -78,7 +75,7 @@
           
                     // Redirect after 2 seconds
                     setTimeout(() => {
-                       window.location.href = 'index.html';
+                       window.location.href = 'dashboard.html';
                     }, 2000);
                 } else {
                    document.getElementById('error-message').textContent = data.error;

@@ -112,7 +112,7 @@ body {
 /* Welcome Message Styles */
 .welcome-message {
     width: 50%;
-    background: linear-gradient(135deg, #22c56e, #2c3e50);
+    background: linear-gradient(135deg, #22a369, #2c3e50);
     color: white;
     padding: 60px;
     display: flex;
