@@ -6,7 +6,9 @@
     <title>FairScore Admin Panel</title>
     <link rel="stylesheet" href="./css/dashboard.css">
     <link rel="stylesheet" href="./css/Addjudge.css">
+    <link rel="stylesheet" href="./css/list.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
 </head>
 <body>
     <div class="dashboard-container">
@@ -31,26 +33,18 @@
             <nav class="dashboard-sidebar">
                 <ul class="sidebar-menu">
                     <li class="active">
-                        <a href="#"><i class="fas fa-home"></i> Dashboard</a>
+                        <a href="#" class="dashboard-link"><i class="fas fa-home"></i> Dashboard</a>
                     </li>
                     
                     <li class="menu-section">JUDGE MANAGEMENT</li>
                     <li>
-                        <a href="#"><i class="fas fa-user-plus"></i> Add Judge</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fas fa-users"></i> Judge List <span class="menu-badge">5</span></a>
+                        <a href="#" class="add-judge-link"><i class="fas fa-user-plus"></i> Add Judge</a>
                     </li>
                     
                     <li class="menu-section">PARTICIPANTS</li>
                     <li>
                         <a href="#"><i class="fas fa-user-plus"></i> Add Participant</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="fas fa-users"></i> Participant List <span class="menu-badge">20</span></a>
-                    </li>
-                    
-                    <!-- Additional menu items would go here -->
                 </ul>
             </nav>
 
@@ -97,13 +91,42 @@
                 
                 <!-- Quick Actions -->
                 <div class="quick-actions">
-                    <button class="action-btn"><i class="fas fa-user-plus"></i> Add Judge</button>
+                    <button class="action-btn add-judge-btn"><i class="fas fa-user-plus"></i> Add Judge</button>
                     <button class="action-btn"><i class="fas fa-user-plus"></i> Add Participant</button>
                     <button class="action-btn"><i class="fas fa-chart-bar"></i> View Stats</button>
-                    <button class="action-btn"><i class="fas fa-file-export"></i> Export Data</button>
+                    <button class="action-btn view-judges-btn"><i class="fas fa-file-export"></i> View Judges</button>
                 </div>
-                <!-- Add Judge Form (insert this right here) -->
-                <div class="add-judge-form" id="judgeForm">
+                <!-- Judge List Dropdown -->
+<div class="judge-list-dropdown" id="judgesDropdown" style="display: none;">
+    <section class="judge-list-section">
+        <div class="judge-list-header">
+            <h3><i class="fas fa-users"></i> List of Judges</h3>
+        </div>
+        <table class="judge-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Judge ID</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody id="judgeTableBody">
+                <!-- Judges will be dynamically inserted here -->
+                <tr>
+                    <td colspan="7" style="text-align: center;">Loading judges...</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+
+                
+                <!-- Add Judge Form -->
+                <div class="add-judge-form" id="judgeForm" style="display: none;">
+                    <!-- Your existing add judge form here -->
                     <div class="form-header">
                         <h3><i class="fas fa-user-tie"></i> Add New Judge</h3>
                         <button class="close-btn">&times;</button>
@@ -163,8 +186,9 @@
                         </div>
                     </form>
                 </div>
+                
                 <!-- Add Participant Form -->
-                <div class="add-participant-form" id="participantForm">
+                <div class="add-participant-form" id="participantForm" style="display: none;">
                    <div class="form-header">
                         <h3><i class="fas fa-user-plus"></i> Add New Participant</h3>
                         <button class="close-btn">&times;</button>
@@ -189,7 +213,6 @@
                         </div>
                     </form>
                 </div>
-                
                 <!-- Two Column Layout -->
                 <div class="content-columns">
                     <!-- Recent Activity Column -->
@@ -204,7 +227,6 @@
                                 <div class="activity-time">10:30 AM</div>
                                 <div class="activity-details">New participant registered</div>
                             </div>
-                            <!-- More activity items would go here -->
                         </div>
                     </div>
                     
@@ -218,7 +240,6 @@
                                 <div class="team-score">⭐ 9.2</div>
                                 <div class="team-medal">🏅</div>
                             </div>
-                            <!-- More standing items would go here -->
                         </div>
                     </div>
                 </div>
@@ -226,8 +247,124 @@
         </div>
     </div>
 
-    <script src="./js/dash.js"></script>
+    <script src="./js/add_part.js"></script>
     <script src="./js/scripts.js"></script>
-    <!-- <script src="./js/add_part.js"></script> -->
+    <script src="./js/add.js"></script>
+    <script src="./js/dash.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation handlers
+            document.querySelector('.judge-list-link').addEventListener('click', showJudgeList);
+            document.querySelector('.view-judges-btn').addEventListener('click', showJudgeList);
+            document.querySelector('.add-judge-link').addEventListener('click', showAddJudgeForm);
+            document.querySelector('.add-judge-btn').addEventListener('click', showAddJudgeForm);
+            document.querySelector('.back-to-dashboard').addEventListener('click', showDashboard);
+            document.querySelector('.dashboard-link').addEventListener('click', showDashboard);
+            
+            // Close buttons
+            document.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.add-judge-form, .add-participant-form').style.display = 'none';
+                });
+            });
+            
+            // Initial load
+            fetchJudges();
+            
+            // Search functionality
+            document.getElementById('judgeSearch').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const rows = document.querySelectorAll('#judgeTableBody tr');
+                
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(searchTerm) ? '' : 'none';
+                });
+            });
+        });
+        
+        function showJudgeList(e) {
+            e.preventDefault();
+            document.body.classList.add('judge-list-active');
+            fetchJudges();
+        }
+        
+        function showAddJudgeForm(e) {
+            e.preventDefault();
+            document.getElementById('judgeForm').style.display = 'block';
+            document.body.classList.remove('judge-list-active');
+        }
+        
+        function showDashboard(e) {
+            e.preventDefault();
+            document.body.classList.remove('judge-list-active');
+            document.getElementById('judgeForm').style.display = 'none';
+            document.getElementById('participantForm').style.display = 'none';
+        }
+        
+        function fetchJudges() {
+            fetch('http://localhost/fairscore/backend/list_judge.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const tbody = document.getElementById('judgeTableBody');
+                        tbody.innerHTML = '';
+                        
+                        if (data.data.length === 0) {
+                            tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No judges found</td></tr>';
+                            return;
+                        }
+                        
+                        data.data.forEach((judge, index) => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${index + 1}</td>
+                                <td>${judge.full_name}</td>
+                                <td>${judge.email}</td>
+                                <td>${judge.phone || 'N/A'}</td>
+                                <td>${judge.judge_id}</td>
+                                <td>${judge.created_at}</td>
+                                
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('judgeTableBody').innerHTML = 
+                        '<tr><td colspan="7" style="text-align: center;">Error loading judges</td></tr>';
+                });
+        }
+        
+
+        function deleteJudge(judgeId) {
+            if (confirm('Are you sure you want to delete this judge?')) {
+                fetch('delete_judge.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: judgeId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Judge deleted successfully');
+                        fetchJudges(); // Refresh the list
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the judge');
+                });
+            }
+        }
+    </script>
 </body>
 </html>

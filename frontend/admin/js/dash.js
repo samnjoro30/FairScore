@@ -21,10 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
     }
-    
-    // Initialize charts
-    initializeCharts();
-    
     // Judges management
     const judgesLink = document.getElementById('judges-link');
     const addJudgeBtn = document.getElementById('add-judge-btn');
@@ -73,163 +69,63 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(tabId).classList.add('active');
         });
     });
-    
-    // Form submission for adding judge
-    const addJudgeForm = document.getElementById('add-judge-form');
-    
-    addJudgeForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const judgeData = {
-            name: document.getElementById('judge-name').value,
-            email: document.getElementById('judge-email').value,
-            specialty: document.getElementById('judge-specialty').value,
-            status: document.getElementById('judge-status').value
-        };
-        
-        addJudge(judgeData);
-    });
-    
-    // Search and filter judges
-    const judgeSearch = document.getElementById('judge-search');
-    const judgeFilter = document.getElementById('judge-filter');
-    
-    judgeSearch.addEventListener('input', filterJudges);
-    judgeFilter.addEventListener('change', filterJudges);
-    
-    // Load initial data
-    loadJudgesData();
 });
 
-function loadJudgesData() {
+document.addEventListener('DOMContentLoaded', function() {
+    const judgesDropdown = document.getElementById('judgesDropdown');
+    const judgeForm = document.getElementById('judgeForm');
+    const participantForm = document.getElementById('participantForm');
+    const viewJudgesBtn = document.querySelector('.view-judges-btn');
     
-    fetch('http://localhost/fairscore/backend/judges.php?action=getAll')
-        .then(response => response.json())
-        .then(data => displayJudges(data))
-        .catch(error => console.error('Error loading judges:', error));
-}
-
-function displayJudges(judges) {
-    const tbody = document.querySelector('#judges-table tbody');
-    tbody.innerHTML = '';
-    
-    judges.forEach(judge => {
-        const tr = document.createElement('tr');
+    // View Judges button handler with animation
+    viewJudgesBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         
-        tr.innerHTML = `
-            <td>${judge.id}</td>
-            <td>${judge.name}</td>
-            <td>${judge.email}</td>
-            <td><span class="status-badge ${judge.status}">${judge.status}</span></td>
-            <td>
-                <button class="btn-action edit-judge" data-id="${judge.id}"><i class="fas fa-edit"></i></button>
-                <button class="btn-action delete-judge" data-id="${judge.id}"><i class="fas fa-trash"></i></button>
-            </td>
-        `;
+        // Hide other forms
+        judgeForm.style.display = 'none';
+        participantForm.style.display = 'none';
         
-        tbody.appendChild(tr);
-    });
-    
-    // Add event listeners to action buttons
-    document.querySelectorAll('.edit-judge').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const judgeId = this.getAttribute('data-id');
-            editJudge(judgeId);
-        });
-    });
-    
-    document.querySelectorAll('.delete-judge').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const judgeId = this.getAttribute('data-id');
-            deleteJudge(judgeId);
-        });
-    });
-}
-
-function filterJudges() {
-    const searchTerm = document.getElementById('judge-search').value.toLowerCase();
-    const filterValue = document.getElementById('judge-filter').value;
-    
-    const rows = document.querySelectorAll('#judges-table tbody tr');
-    
-    rows.forEach(row => {
-        const name = row.cells[1].textContent.toLowerCase();
-        const email = row.cells[2].textContent.toLowerCase();
-        const status = row.cells[3].textContent;
-        
-        const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm);
-        const matchesFilter = filterValue === 'all' || status === filterValue;
-        
-        if (matchesSearch && matchesFilter) {
-            row.style.display = '';
+        // Toggle judges dropdown with animation
+        if (judgesDropdown.style.display === 'block') {
+            judgesDropdown.style.opacity = '0';
+            judgesDropdown.style.transform = 'translateY(-8px)';
+            setTimeout(() => {
+                judgesDropdown.style.display = 'none';
+            }, 200);
         } else {
-            row.style.display = 'none';
+            judgesDropdown.style.display = 'block';
+            // Trigger reflow to enable animation
+            void judgesDropdown.offsetWidth;
+            judgesDropdown.style.opacity = '1';
+            judgesDropdown.style.transform = 'translateY(0)';
+            fetchJudges();
         }
     });
-}
-
-function addJudge(judgeData) {
-    // In a real app, this would send data to your PHP backend
-    console.log('Adding judge:', judgeData);
     
-    
-    fetch('http://localhost/fairscore/backend/judges.php?action=add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(judgeData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Judge added successfully!');
-            document.getElementById('add-judge-form').reset();
-            loadJudgesData();
-            // Switch back to judges list tab
-            document.querySelector('.tab-btn[data-tab="judges-list"]').click();
-        } else {
-            alert('Error adding judge: ' + data.message);
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.judge-list-dropdown') && 
+            !event.target.closest('.view-judges-btn') &&
+            judgesDropdown.style.display === 'block') {
+            judgesDropdown.style.opacity = '0';
+            judgesDropdown.style.transform = 'translateY(-8px)';
+            setTimeout(() => {
+                judgesDropdown.style.display = 'none';
+            }, 200);
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error adding judge');
     });
-    // For demo purposes, we'll just show an alert
-    alert(`Judge ${judgeData.name} added successfully! (This would be saved to database in real app)`);
-    document.getElementById('add-judge-form').reset();
-    // Switch back to judges list tab
-    document.querySelector('.tab-btn[data-tab="judges-list"]').click();
-}
-
-function editJudge(judgeId) {
-    // In a real app, this would fetch judge data and populate a form
-    console.log('Editing judge with ID:', judgeId);
-    alert(`Editing judge with ID: ${judgeId} (Functionality to be implemented)`);
-}
-
-function deleteJudge(judgeId) {
-    if (confirm('Are you sure you want to delete this judge?')) {
-        // In a real app, this would send a request to your PHP backend
-        console.log('Deleting judge with ID:', judgeId);
-        
-        fetch(`http://localhost/fairscore/backend/judges.php?action=delete&id=${judgeId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    loadJudgesData();
-                } else {
-                    alert('Error deleting judge: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error deleting judge');
-            });
-        
-        // For demo purposes, we'll just show an alert
-        alert(`Judge with ID ${judgeId} deleted! (This would remove from database in real app)`);
-        loadJudgesData();
-    }
-}
+    
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && judgesDropdown.style.display === 'block') {
+            judgesDropdown.style.opacity = '0';
+            judgesDropdown.style.transform = 'translateY(-8px)';
+            setTimeout(() => {
+                judgesDropdown.style.display = 'none';
+            }, 200);
+        }
+    });
+    
+    // Rest of your existing JavaScript...
+});
