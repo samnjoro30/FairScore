@@ -19,7 +19,7 @@ body {
 }
 
 /* Header Styles */
-.dashboard-header {
+/* .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +47,7 @@ body {
     cursor: pointer;
     position: relative;
     color: #555;
-}
+} */
 
 .badge {
     position: absolute;

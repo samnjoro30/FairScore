@@ -129,3 +129,52 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Rest of your existing JavaScript...
 });
+
+// If you want to periodically update the last login time
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial load
+    fetchAdminData();
+    
+    // Update every 5 minutes (optional)
+    setInterval(fetchAdminData, 300000);
+});
+
+function fetchAdminData() {
+    fetch('http://localhost/fairscore/backend/dashboard.php', {
+        credentials: 'include' // Important for sending session cookies
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            updateAdminUI(data.data);
+        } else {
+            showError(data.error || 'Failed to load admin data');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showError('Error loading admin information');
+    });
+}
+
+function updateAdminUI(adminData) {
+    document.getElementById('adminUsername').textContent = adminData.name;
+    document.getElementById('adminEmail').innerHTML = 
+        `<i class="fas fa-envelope"></i> ${adminData.email}`;
+    document.getElementById('adminLastLogin').innerHTML = 
+        `<i class="fas fa-clock"></i> Last login: ${adminData.last_login}`;
+}
+
+function showError(message) {
+    // You can customize error display as needed
+    console.error(message);
+    document.getElementById('adminEmail').innerHTML = 
+        `<i class="fas fa-envelope"></i> Error loading email`;
+    document.getElementById('adminLastLogin').innerHTML = 
+        `<i class="fas fa-clock"></i> Last login: Unknown`;
+}

@@ -1,7 +1,7 @@
 /* Add Judge Form Styles */
 .add-judge-form {
     display: none;
-    background-color: white;
+    background-color: rgb(212, 219, 232);
     border-radius: 10px;
     padding: 1.5rem;
     margin: 2rem auto;

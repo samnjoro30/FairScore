@@ -47,7 +47,8 @@ try {
                 'username' => $user['username'],
                 'name' => $user['Name'],
                 'email' => $user['Email'],
-                'last_login' => time()
+                'last_login' => time(),
+                'db_last_login' => $user['last_login']
             ];
             
             // Update last login time

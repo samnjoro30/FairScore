@@ -1,0 +1,157 @@
+/* Modern Header Styles */
+.dashboard-header {
+    height: 160px;
+    background: linear-gradient(135deg, #ced1dd 0%, #1a14c7 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-bottom-left-radius: 20px ;
+    border-bottom-right-radius: 20px ;
+    padding: 0 2rem;
+}
+
+.header-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    opacity: 0.9;
+}
+
+.logo-main {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #ffffff, #f0f0f0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-sub {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+}
+
+/* Right Side Elements */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: auto;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-profile:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.user-avatar {
+    font-size: 1.2rem;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-header {
+        height: 140px;
+        padding: 0 1rem;
+    }
+    
+    .logo-main {
+        font-size: 2rem;
+    }
+    
+    .logo-icon {
+        font-size: 1.5rem;
+    }
+    
+    .logo-sub {
+        font-size: 0.9rem;
+    }
+    
+    .header-right {
+        gap: 1rem;
+    }
+    
+    .user-name {
+        display: none;
+    }
+    
+    .user-profile {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header {
+        height: 120px;
+    }
+    
+    .logo-main {
+        font-size: 1.8rem;
+    }
+    
+    .logo-icon {
+        display: none;
+    }
+}
