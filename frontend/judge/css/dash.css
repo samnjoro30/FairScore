@@ -10,6 +10,25 @@ body {
     background-color: #f5f7fa;
     color: #333;
 }
+/* Light theme (default) */
+body {
+    background-color: #ffffff;
+    color: #000000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark theme */
+body.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+/* Optional: style specific elements if needed */
+.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
 
 /* Dashboard Container */
 .dashboard-container {
@@ -46,42 +65,6 @@ body {
     flex: 1;
     overflow: hidden;
 }
-
-/* Sidebar Styles */
-/* .dashboard-sidebar {
-    width: 250px;
-    background-color: #ffffff;
-    border-right: 1px solid #e0e0e0;
-    padding: 1rem 0;
-    overflow-y: auto;
-}
-
-.sidebar-menu {
-    list-style: none;
-}
-
-.sidebar-menu li {
-    padding: 0.5rem 1.5rem;
-}
-
-.sidebar-menu li a {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-    color: #555;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.sidebar-menu li a:hover {
-    color: #3a57e8;
-}
-
-.sidebar-menu .active a {
-    color: #3a57e8;
-    font-weight: 600;
-} */
 
 .menu-section {
     font-size: 0.75rem;

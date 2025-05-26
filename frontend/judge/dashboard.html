@@ -47,7 +47,7 @@
                         
                         <li class="menu-section">JUDGE MANAGEMENT</li>
                         <li>
-                            <a href="#" class="add-judge-link">
+                            <a href="#" class="add-judge-link" id="openParticipantsFromSidebar">
                                 <i class="fas fa-user-plus"></i>
                                 <span>Participants</span>
                             </a>
@@ -118,51 +118,53 @@
                         </div>
                     </div>
                 </div>
-                <!-- Two Column Layout -->
-                <div class="content-columns">
-                    
-                </div>
-                    
-                    
             </main>
         </div>
     </div>
     <script src="./js/script.js"></script>
+    <script src="./js/info.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    const scoreBtn = document.getElementById('scoreParticipantBtn');
-    const viewBtn = document.getElementById('viewScoresBtn');
-    const scoreModal = document.getElementById('scoreModal');
-    const viewScoresModal = document.getElementById('viewScoresModal');
-    const closeButtons = document.querySelectorAll('.close');
+           const scoreBtn = document.getElementById('scoreParticipantBtn');
+           const viewBtn = document.getElementById('viewScoresBtn');
+           const scoreModal = document.getElementById('scoreModal');
+           const viewScoresModal = document.getElementById('viewScoresModal');
+           const closeButtons = document.querySelectorAll('.close');
+           const sidebarParticipantLink = document.getElementById('openParticipantsFromSidebar');
 
-    // Open Score Modal, close View Modal
-    scoreBtn.addEventListener('click', function() {
-        viewScoresModal.style.display = 'none'; // Close view modal
-        scoreModal.style.display = 'block'; // Open score modal
-    });
+           // Open Score Modal, close View Modal
+            scoreBtn.addEventListener('click', function() {
+                viewScoresModal.style.display = 'none'; // Close view modal
+                scoreModal.style.display = 'block'; // Open score modal
+            });
 
-    // Open View Modal, close Score Modal
-    viewBtn.addEventListener('click', function() {
-        scoreModal.style.display = 'none'; // Close score modal
-        viewScoresModal.style.display = 'block'; // Open view modal
-    });
+           // Open View Modal, close Score Modal
+           viewBtn.addEventListener('click', function() {
+               scoreModal.style.display = 'none'; // Close score modal
+               viewScoresModal.style.display = 'block'; // Open view modal
+            });
+            
 
-    // Close modals when clicking X
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            this.closest('.modal').style.display = 'none';
+            // Close modals when clicking X
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                this.closest('.modal').style.display = 'none';
+            });
+            sidebarParticipantLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                viewScoresModal.style.display = 'none'; // Close View Scores if open
+                scoreModal.style.display = 'block'; // Open Score Participant modal
+            });
+        });
+ 
+        // Close modals when clicking outside
+        window.addEventListener('click', function(event) {
+           if (event.target.classList.contains('modal')) {
+               event.target.style.display = 'none';
+            }
         });
     });
-
-    // Close modals when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
-    });
-});
-        </script>
+    </script>
         
 </body>
 </html>

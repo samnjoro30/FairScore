@@ -76,7 +76,7 @@
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 id="judgeCount">0</h3>
+                            <!-- <h3 id="judgeCount"></h3> -->
                             <p>Judges</p>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 id="participantCount">0</h3>
+                            <!-- <h3 id="participantCount"></h3> -->
                             <p>Participants</p>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="stat-info">
-                            <h3 id="accuracyPercent">0%</h3>
+                            <!-- <h3 id="accuracyPercent"></h3> -->
                             <p>Accuracy</p>
                         </div>
                     </div>
@@ -142,54 +142,55 @@
                     </div>
                 </div>
                 <!-- Judge List Dropdown -->
-<div class="judge-list-dropdown" id="judgesDropdown" style="display: none;">
-    <section class="judge-list-section">
-        <div class="judge-list-header">
-            <h3><i class="fas fa-users"></i> List of Judges</h3>
-        </div>
-        <table class="judge-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Judge ID</th>
-                    <th>Created At</th>
-                </tr>
-            </thead>
-            <tbody id="judgeTableBody">
-                <!-- Judges will be dynamically inserted here -->
-                <tr>
-                    <td colspan="7" style="text-align: center;">Loading judges...</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</div>         
-                    <div class="participants-view-container" id="participantsView" style="display: none;">
-                        <div class="participants-header">
+                <div class="judge-list-dropdown" id="judgesDropdown" style="display: none;">
+                    <section class="judge-list-section">
+                        <div class="judge-list-header">
+                            <h3><i class="fas fa-users"></i> List of Judges</h3>
+                        </div>
+                        <table class="judge-table">
+                            <thead>
+                               <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Judge ID</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="judgeTableBody">
+                                <!-- Judges will be dynamically inserted here -->
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Loading judges...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div> 
+                 <!--participants list-->
+                <div class="participants-view-container" id="participantsView" style="display: none;">
+                    <div class="participants-header">
                             <h2>Participants List</h2>
                             <button class="close-btn" id="closeParticipantsView">
                                 <i class="fas fa-times"></i>
                             </button>
-                        </div>
-                        <div class="participants-table-container">
-                            <table class="participants-table">
-                                <thead>
-                                   <tr>
-                                        <th>ID</th>
-                                        <th>Full Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="participantsTableBody">
-                                   <!-- Participants will be loaded here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>  
+                    </div>
+                    <div class="participants-table-container">
+                        <table class="participants-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                </tr>
+                            </thead>
+                            <tbody id="participantsTableBody">
+                                <!-- Participants will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
 
                 <!-- Add Judge Form -->
                 <div class="add-judge-form" id="judgeForm" style="display: none;">
@@ -233,7 +234,6 @@
                                         <span class="strength-text">Weak</span>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group">
                                     <label for="judgeUsername">Judge ID *</label>
                                     <div class="username-generator">
@@ -246,7 +246,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="form-actions">
                             <button type="reset" class="cancel-btn">Cancel</button>
                             <button type="submit" class="submit-btn">Add Judge</button>
@@ -293,36 +292,7 @@
                         </form>
                     </div>
                 </div>
-                <!-- Two Column Layout -->
-                <div class="content-columns">
-                    <!-- Recent Activity Column -->
-                    <div class="content-col">
-                        <h3 class="section-title"><i class="fas fa-clock"></i> Recent Activity</h3>
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-time">10:45 AM</div>
-                                <div class="activity-details">Judge A scored Team X (8.5)</div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-time">10:30 AM</div>
-                                <div class="activity-details">New participant registered</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Live Standings Column -->
-                    <div class="content-col">
-                        <h3 class="section-title"><i class="fas fa-trophy"></i> Live Standings (Top 5)</h3>
-                        <div class="standings-list">
-                            <div class="standing-item first-place">
-                                <div class="rank">#1</div>
-                                <div class="team-name">Team Alpha</div>
-                                <div class="team-score">⭐ 9.2</div>
-                                <div class="team-medal">🏅</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
             </main>
         </div>
     </div>
