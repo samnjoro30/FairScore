@@ -1,0 +1,122 @@
+/* Scores Container */
+#scoresContainer {
+    display: none;
+    margin-top: 30px;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(30, 21, 156, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.3s ease-out;
+}
+
+#scoresContainer h3 {
+    color: #36338b;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(54, 51, 139, 0.1);
+}
+
+#scoresContainer h3::before {
+    content: "📊";
+    font-size: 20px;
+}
+
+#scoresContainer p {
+    color: #6c757d;
+    font-size: 15px;
+    line-height: 1.6;
+    padding: 15px 0;
+}
+
+/* Score Table */
+.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.score-table th {
+    background-color: #f8f9ff;
+    color: #36338b;
+    font-weight: 600;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 2px solid rgba(54, 51, 139, 0.1);
+    position: sticky;
+    top: 0;
+}
+
+.score-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #495057;
+}
+
+.score-table tr:last-child td {
+    border-bottom: none;
+}
+
+.score-table tr:hover td {
+    background-color: #fafbff;
+}
+
+.score-table td:nth-child(2) {
+    font-weight: 600;
+    color: #36338b;
+}
+
+.score-table td:nth-child(3) {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f9ff;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.empty-state p {
+    color: #6c757d;
+    margin-bottom: 15px;
+}
+
+.empty-state .icon {
+    font-size: 40px;
+    color: #adb5bd;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #scoresContainer {
+        padding: 20px;
+    }
+    
+    .score-table th, 
+    .score-table td {
+        padding: 12px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    #scoresContainer {
+        padding: 20px 15px;
+    }
+    
+    .score-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}

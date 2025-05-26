@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FairScore Judge Panel</title>
     <link rel="stylesheet" href="./css/dash.css">
+    <link rel="stylesheet" href="./css/participant.css">
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/welcome.css">
+    <link rel="stylesheet" href="./css/section.css">
     <link rel="stylesheet" href="./css/sidebar.css"> 
+    <link rel="stylesheet" href="./css/button.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
 </head>
@@ -91,7 +94,30 @@
                         <i class="fas fa-list-ol"></i> View My Scores
                     </button>
                 </div>
-                
+
+                <div id="scoresContainer" style="display: none; margin-top: 20px;"></div>
+
+                <!-- Score Participant Modal -->
+                <div id="scoreModal" class="modal">
+                    <div class="modal-content" style="max-width: 800px;">
+                        <span class="close">&times;</span>
+                        <h2>Score Participants</h2>
+                        <div class="table-container">
+                            <table id="participantsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Participant</th>
+                                        <th>Score (0-10)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="participantsList">
+                                    <!-- Participants will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
                 <!-- Two Column Layout -->
                 <div class="content-columns">
                     
@@ -101,5 +127,42 @@
             </main>
         </div>
     </div>
+    <script src="./js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const scoreBtn = document.getElementById('scoreParticipantBtn');
+    const viewBtn = document.getElementById('viewScoresBtn');
+    const scoreModal = document.getElementById('scoreModal');
+    const viewScoresModal = document.getElementById('viewScoresModal');
+    const closeButtons = document.querySelectorAll('.close');
+
+    // Open Score Modal, close View Modal
+    scoreBtn.addEventListener('click', function() {
+        viewScoresModal.style.display = 'none'; // Close view modal
+        scoreModal.style.display = 'block'; // Open score modal
+    });
+
+    // Open View Modal, close Score Modal
+    viewBtn.addEventListener('click', function() {
+        scoreModal.style.display = 'none'; // Close score modal
+        viewScoresModal.style.display = 'block'; // Open view modal
+    });
+
+    // Close modals when clicking X
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.closest('.modal').style.display = 'none';
+        });
+    });
+
+    // Close modals when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    });
+});
+        </script>
+        
 </body>
 </html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FairScore Competition Results</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="results-container">
+            <!-- Header Section -->
+            <header class="results-header">
+                <div class="header-content">
+                    <h1>FairScore Competition Results</h1>
+                    <div class="header-meta">
+                        <div class="last-updated">
+                            <i class="fas fa-sync-alt"></i> Last updated: <span id="update-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="results-main">
+                <!-- Top Winners Section -->
+                <section class="winners-section card">
+                    <h2><i class="fas fa-trophy"></i> Top Winners</h2>
+                    <div class="table-container">
+                        <table class="winners-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Participant ID</th>
+                                    <th>Average Score</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody id="winners-table-body">
+                                <!-- JS will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="results-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <p>Fair and transparent scoring for competitions</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Competition</h4>
+                        <a href="#"><i class="fas fa-chevron-right"></i> Rules</a>
+                        <a href="#"><i class="fas fa-chevron-right"></i> Categories</a>
+                        <a href="#"><i class="fas fa-chevron-right"></i> Schedule</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Resources</h4>
+                        <a href="#"><i class="fas fa-chevron-right"></i> Scoring Criteria</a>
+                        <a href="#"><i class="fas fa-chevron-right"></i> FAQs</a>
+                        <a href="#"><i class="fas fa-chevron-right"></i> Contact</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Connect</h4>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FairScore. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/results.js"></script>
+</body>
+</html>
