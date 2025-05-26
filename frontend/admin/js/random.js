@@ -1,51 +1,72 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     // ... [keep all your existing code until the ID generation part] ...
+document.addEventListener('DOMContentLoaded', function() {
+    // View Participants button click handler
+    document.querySelector('.action-btn:nth-child(3)').addEventListener('click', function() {
+        fetchParticipants();
+        document.getElementById('participantsView').style.display = 'block';
+    });
 
-//     // ID Generation Functions
-//     function generateJudgeId() {
-//         const randomId = 'JUDGE-' + Math.floor(1000 + Math.random() * 9000);
-//         const judgeUsernameField = document.getElementById('judgeUsername');
-//         if (judgeUsernameField) judgeUsernameField.value = randomId;
-//     }
+    // Close participants view
+    document.getElementById('closeParticipantsView').addEventListener('click', function() {
+        document.getElementById('participantsView').style.display = 'none';
+    });
 
-//     function generateParticipantId() {
-//         const randomId = 'Part-' + Math.floor(1000 + Math.random() * 9000);
-//         const partiUsernameField = document.getElementById('partiUsername');
-//         if (partiUsernameField) partiUsernameField.value = randomId;
-//     }
+    const participantsView = document.getElementById('participantsView');
+    const tableBody = document.getElementById('participantsTableBody');
+    const actionButtons = document.querySelectorAll('.action-btn');
+    const closeBtn = document.getElementById('closeParticipantsView');
+    
+    // Function to close participants view
+    function closeParticipantsView() {
+        participantsView.style.display = 'none';
+    }
 
-//     // Event Delegation Approach (better for dynamic content)
-//     document.body.addEventListener('click', function(e) {
-//         // Judge ID generation
-//         if (e.target.closest('#generateUsername')) {
-//             e.preventDefault();
-//             generateJudgeId();
-//         }
-        
-//         // Participant ID generation
-//         if (e.target.closest('#GUsername')) {
-//             e.preventDefault();
-//             generateParticipantId();
-//         }
-        
-//         // Password visibility toggle
-//         if (e.target.closest('.toggle-password')) {
-//             e.preventDefault();
-//             const passwordInput = document.getElementById('judgePassword');
-//             if (passwordInput) {
-//                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-//                 passwordInput.setAttribute('type', type);
-//                 const icon = e.target.closest('.toggle-password').querySelector('i');
-//                 if (icon) icon.classList.toggle('fa-eye-slash');
-//             }
-//         }
-//     });
+    // Function to fetch and display participants
+    async function fetchParticipants() {
+        participantsView.style.display = 'block';
+        tableBody.innerHTML = '<tr><td colspan="4" class="loading-state">Loading participants...</td></tr>';
 
-//     // Debugging
-//     console.log('ID Generation Elements:', {
-//         generateUsernameBtn: document.getElementById('generateUsername'),
-//         gUsernameBtn: document.getElementById('GUsername'),
-//         judgeUsernameField: document.getElementById('judgeUsername'),
-//         partiUsernameField: document.getElementById('partiUsername')
-//     });
-// });
+        try {
+            const response = await fetch('http://localhost/fairscore/backend/get_participants.php');
+            
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Server responded with status ${response.status}: ${errorText}`);
+            }
+
+            const participants = await response.json();
+            const tableBody = document.getElementById('participantsTableBody');
+            tableBody.innerHTML = '';
+
+            if (participants.error) {
+                throw new Error(participants.error);
+            }
+
+            participants.forEach(participant => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${participant.participant_id}</td>
+                    <td>${participant.full_name}</td>
+                    <td>${participant.email}</td>
+                    <td>${participant.phone || 'N/A'}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+        } catch (error) {
+            console.error('Error loading participants:', error);
+            alert('Error loading participants: ' + error.message);
+        }
+    }
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Close participants view first
+            closeParticipantsView();
+            
+            // If this is the view participants button, fetch data
+            if (button === document.querySelector('.action-btn:nth-child(3)')) {
+                fetchParticipants();
+            }
+        });
+   });
+   closeBtn.addEventListener('click', closeParticipantsView);
+});
