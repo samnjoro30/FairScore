@@ -106,5 +106,12 @@ CREATE TABLE scores (
 
 ## Screenshots
 
-## License
-MIT License
+<div align="center">
+  <img src="screenshot/pic1.png" width="45%" alt="Screenshot 1" title="judge login">
+  <img src="screenshot/pic2.png" width="45%" alt="Screenshot 2" title="Admin dashboard">
+  <br>
+  <img src="screenshot/pic3.png" width="45%" alt="Screenshot 3" title="admin login">
+  <img src="screenshot/pic4.png" width="45%" alt="Screenshot 4" title="judge dashboard">
+  <br>
+  <img src="screenshot/pic5.png" width="90%" alt="Screenshot 5" title="Live Score">
+</div>
