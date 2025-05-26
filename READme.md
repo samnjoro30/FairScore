@@ -107,11 +107,11 @@ CREATE TABLE scores (
 ## Screenshots
 
 <div align="center">
-  <img src="screenshot/pic1.png" width="45%" alt="Screenshot 1" title="judge login">
-  <img src="screenshot/pic2.png" width="45%" alt="Screenshot 2" title="Admin dashboard">
+  <img src="screenshots/pic1.png" width="45%" alt="Screenshot 1" title="judge login">
+  <img src="screenshots/pic2.png" width="45%" alt="Screenshot 2" title="Admin dashboard">
   <br>
-  <img src="screenshot/pic3.png" width="45%" alt="Screenshot 3" title="admin login">
-  <img src="screenshot/pic4.png" width="45%" alt="Screenshot 4" title="judge dashboard">
+  <img src="screenshots/pic3.png" width="45%" alt="Screenshot 3" title="admin login">
+  <img src="screenshots/pic4.png" width="45%" alt="Screenshot 4" title="judge dashboard">
   <br>
-  <img src="screenshot/pic5.png" width="90%" alt="Screenshot 5" title="Live Score">
+  <img src="screenshots/pic5.png" width="90%" alt="Screenshot 5" title="Live Score">
 </div>
