@@ -1,7 +1,5 @@
 # FairScore - Competition Scoring System
 
-![FairScore Logo](https://via.placeholder.com/150x50?text=FairScore)
-
 FairScore is a comprehensive competition scoring system with admin, judge, and public interfaces for managing participants, scoring, and displaying results.
 
 ## Features
