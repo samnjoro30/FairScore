@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const participantCloseBtn = participantForm?.querySelector('.close-btn');
     const participantCancelBtn = participantForm?.querySelector('.cancel-btn');
 
+
     function toggleParticipantForm() {
         if (!participantForm || !judgeForm) return;
         
@@ -86,6 +87,10 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('generateUsername')?.addEventListener('click', function() {
     const randomId = 'JUDGE-' + Math.floor(1000 + Math.random() * 9000);
     document.getElementById('judgeUsername').value = randomId;
+});
+document.getElementById('GUsername')?.addEventListener('click', function() {
+    const randomId = 'Part-' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('partiUsername').value = randomId;
 });
 // Toggle password visibility
 document.querySelector('.toggle-password')?.addEventListener('click', function() {

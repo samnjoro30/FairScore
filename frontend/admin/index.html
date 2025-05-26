@@ -232,16 +232,15 @@
                 </div>
                 
                 <!-- Add Participant Form -->
-              
                 <div class="participant-form-container" id="participantForm" style="display: none;">
-                   <div class="participant-form">
-                       <form id="participantRegistrationForm">
+                    <div class="participant-form">
+                        <form id="participantRegistrationForm">
                             <div class="form-columns">
                                 <div class="form-column">
                                     <div class="form-group">
                                         <label for="participantName">Full Name *</label>
                                         <input type="text" id="participantName" name="participantName" required>
-                                   </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="participantEmail">Email Address *</label>
                                         <input type="email" id="participantEmail" name="participantEmail" required>
@@ -252,11 +251,21 @@
                                         <label for="participantPhone">Phone Number</label>
                                         <input type="tel" id="participantPhone" name="participantPhone">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="judgeUsername">Participant ID *</label>
+                                        <div class="username-generator">
+                                            <input type="text" id="partiUsername" name="partiUsername" required readonly>
+                                            <button type="button" id="GUsername" class="generate-btn">
+                                                <i class="fas fa-sync-alt"></i> Generate
+                                            </button>
+                                        </div>
+                                        <small class="form-hint">Auto-generated Participant identifier</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-actions">
-                               <button type="reset" class="cancel-btn">Cancel</button>
-                               <button type="submit" class="submit-btn">Add Participant</button>
+                                <button type="reset" class="cancel-btn">Cancel</button>
+                                <button type="submit" class="submit-btn">Add Participant</button>
                             </div>
                         </form>
                     </div>
@@ -299,6 +308,8 @@
     <script src="./js/scripts.js"></script>
     <script src="./js/add.js"></script>
     <script src="./js/dash.js"></script>
+    <script src="./js/random.js"></script>
+    <script src="./js/partcipant.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -388,31 +399,6 @@
                 });
         }
         
-
-        function deleteJudge(judgeId) {
-            if (confirm('Are you sure you want to delete this judge?')) {
-                fetch('delete_judge.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id: judgeId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Judge deleted successfully');
-                        fetchJudges(); // Refresh the list
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while deleting the judge');
-                });
-            }
-        }
     </script>
 </body>
 </html>
