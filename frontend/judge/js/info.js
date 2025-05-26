@@ -40,7 +40,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.getElementById("scoreParticipantBtn").addEventListener("click", function () {
-    document.getElementById("scoreModal").style.display = "block";
-});
-
