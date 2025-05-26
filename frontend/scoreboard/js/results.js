@@ -1,27 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     fetch("http://localhost/fairscore/backend/results.php")
-//         .then(response => response.json())
-//         .then(data => {
-//             const winnersSection = document.querySelector('.winners-section');
-//             winnersSection.innerHTML = "<h2>Top Participants</h2>";
-
-//             const list = document.createElement("ol");
-
-//             data.forEach(item => {
-//                 const li = document.createElement("li");
-//                 li.textContent = `${item.participant_id} — Average Score: ${parseFloat(item.average_score).toFixed(2)}`;
-//                 list.appendChild(li);
-//             });
-
-//             winnersSection.appendChild(list);
-
-//             // Optional: display on Chart.js
-//             displayChart(data);
-//         })
-//         .catch(error => {
-//             console.error("Error fetching scores:", error);
-//         });
-// });
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch("results.php")
@@ -91,30 +67,41 @@ function updateTime() {
 updateTime();
 
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("http://localhost/fairscore/backend/results.php")
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.querySelector(".winners-table tbody");
-            tbody.innerHTML = ""; // Clear previous rows
+    function fetchAndDisplayWinners() {
+        fetch("http://localhost/fairscore/backend/results.php")
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.querySelector(".winners-table tbody");
+                tbody.innerHTML = ""; // Clear previous rows
 
-            data.forEach((item, index) => {
-                const row = document.createElement("tr");
+                data.forEach((item, index) => {
+                    const row = document.createElement("tr");
 
-                row.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${item.participant_id}</td>
-                    <td>${parseFloat(item.average_score).toFixed(2)}</td>
-                `;
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.participant_id}</td>
+                        <td>${parseFloat(item.average_score).toFixed(2)}</td>
+                        <td>${item.category || "N/A"}</td> <!-- Optional: Add 'category' if available -->
+                    `;
 
-                tbody.appendChild(row);
+                    tbody.appendChild(row);
+                });
+
+                // Optional: Chart rendering
+                if (typeof displayChart === 'function') {
+                    displayChart(data);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching scores:", error);
             });
+    }
 
-            // Optional: Chart rendering
-            displayChart(data);
-        })
-        .catch(error => {
-            console.error("Error fetching scores:", error);
-        });
+    // Initial fetch
+    fetchAndDisplayWinners();
+
+    // Repeat fetch every 60 seconds
+    setInterval(fetchAndDisplayWinners, 60000); // 60000ms = 60 seconds
 });
 
 function renderWinnersTable(data) {
