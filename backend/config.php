@@ -12,5 +12,5 @@ $conn = new mysqli($host, $user, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-//ADM1234
-//@Admin254
+$default_username = "ADM1234";
+$default_password = "@Admin254";
